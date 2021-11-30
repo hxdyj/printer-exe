@@ -70,7 +70,7 @@ function createTray() {
   //   },
   // ]);
   // 鼠标悬停时显示的文本
-  tray.setToolTip('可之科技打印程序')
+  tray.setToolTip('')
   // 设置上下文菜单
   // tray.setContextMenu(menu);
   // 绑定点击事件：控制 窗口显示和隐藏。

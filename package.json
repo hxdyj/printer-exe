@@ -2,8 +2,8 @@
   "name": "printer-exe",
   "version": "0.0.1",
   "main": "./dist/main.js",
-  "author": "songle",
-  "description": "test",
+  "author": "hxdyj",
+  "description": "",
   "license": "MIT",
   "scripts": {
     "dev": "vite",
