@@ -1,4 +1,7 @@
 export const G = {
-  port: 40003,
+  port: {
+    http: 40003,
+    https: 40004,
+  },
   version: '0.0.1',
 }

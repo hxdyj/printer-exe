@@ -6,6 +6,9 @@ import ClassifyKoaRouter from 'koa-ts-decorator-router'
 import Result from './utils/Result'
 import { ErrorCode } from '../config/ErrorCode'
 import { G } from '../config/G'
+import https from 'https'
+import fs from 'fs'
+
 const app = new Koa()
 // set cors
 app.use(async (ctx, next) => {
@@ -49,7 +52,16 @@ function startServer() {
       ctx.body = new Result(ctx.body, ErrorCode.Success)
     }
   })
-  app.listen(G.port)
+  app.listen(G.port.http)
+  https
+    .createServer(
+      {
+        key: fs.readFileSync(path.resolve(__dirname, '../key/server.key'), 'utf8'),
+        cert: fs.readFileSync(path.resolve(__dirname, '../key/server.cert'), 'utf8'),
+      },
+      app.callback()
+    )
+    .listen(G.port.https)
 }
 export { router, startServer }
 export default app

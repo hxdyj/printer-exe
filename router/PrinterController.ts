@@ -3,6 +3,8 @@ import { deleteFile, downloadFile } from '../node/utils/download'
 import { print, getDefaultPrinter, getPrinters } from 'pdf-to-printer'
 import Result from '../node/utils/Result'
 import { ErrorCode } from '../config/ErrorCode'
+import { DllHandler } from '../dll/DllHandler'
+
 type PrintParam = Parameters<typeof print>
 @Path('printer')
 export class PrinterController {
@@ -14,6 +16,24 @@ export class PrinterController {
   @GET('default')
   getDefaultPrinter() {
     return getDefaultPrinter()
+  }
+
+  @POST('get/papersizes')
+  async getPaperSizes({ printerName }: { printerName: string }) {
+    try {
+      return await DllHandler.Printer.getPaperSizes(printerName)
+    } catch (error) {
+      return new Result('', ErrorCode.Fail, JSON.stringify(error))
+    }
+  }
+
+  @POST('get/trays')
+  async getTrays({ printerName }: { printerName: string }) {
+    try {
+      return await DllHandler.Printer.getTrays(printerName)
+    } catch (error) {
+      return new Result('', ErrorCode.Fail, JSON.stringify(error))
+    }
   }
 
   @POST()

@@ -1,22 +1,26 @@
 {
-  "name": "printer-exe",
+  "name": "learnable-ai-printer",
   "version": "0.0.1",
   "main": "./dist/main.js",
-  "author": "hxdyj",
-  "description": "",
+  "author": "songle",
+  "description": "learnable-ai-printer",
   "license": "MIT",
   "scripts": {
+    "postinstall": "patch-package",
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
     "_tsc": "tsc",
-    "estart": "npm run _tsc &&  electron .",
-    "package": "npm run _tsc && electron-forge package",
-    "make": "npm run _tsc && electron-forge make",
-    "start": "npm run _tsc && electron-forge start"
+    "copy": "copyfiles ./key/* ./dist/ && copyfiles ./dll/*.dll ./dist",
+    "prerun": "npm run _tsc && npm run copy",
+    "estart": "npm run prerun &&  electron .",
+    "package": "npm run prerun && electron-forge package",
+    "make": "npm run prerun && electron-forge make",
+    "start": "npm run prerun && electron-forge start"
   },
   "dependencies": {
     "download": "^8.0.0",
+    "electron-edge-js": "^14.16.1",
     "electron-squirrel-startup": "^1.0.0",
     "koa": "^2.13.4",
     "koa-body": "^4.2.0",
@@ -28,43 +32,29 @@
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.61",
-    "@electron-forge/maker-deb": "^6.0.0-beta.61",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.61",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
     "@electron-forge/maker-zip": "^6.0.0-beta.61",
     "@types/download": "^8.0.1",
     "@types/koa": "^2.13.4",
     "@types/koa-router": "^7.4.4",
     "@vitejs/plugin-vue": "^1.9.3",
-    "electron": "^16.0.2",
-    "ts-node": "^10.4.0",
+    "copyfiles": "^2.4.1",
+    "electron": "13.6.3",
     "typescript": "^4.4.3",
     "vite": "^2.6.4",
     "vue-tsc": "^0.3.0"
   },
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "./dist/favicon.ico"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "my_vue_app"
+            "name": "learnable_ai_printer"
           }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
         }
       ]
     }
