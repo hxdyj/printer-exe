@@ -1,8 +1,0 @@
-C:\Users\lenovo\source\repos\Printer\Printer\bin\Release\net48\Printer.dll
-C:\Users\lenovo\source\repos\Printer\Printer\bin\Release\net48\Printer.pdb
-C:\Users\lenovo\source\repos\Printer\Printer\obj\Release\net48\Printer.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\lenovo\source\repos\Printer\Printer\obj\Release\net48\Printer.AssemblyInfoInputs.cache
-C:\Users\lenovo\source\repos\Printer\Printer\obj\Release\net48\Printer.AssemblyInfo.cs
-C:\Users\lenovo\source\repos\Printer\Printer\obj\Release\net48\Printer.csproj.CoreCompileInputs.cache
-C:\Users\lenovo\source\repos\Printer\Printer\obj\Release\net48\Printer.dll
-C:\Users\lenovo\source\repos\Printer\Printer\obj\Release\net48\Printer.pdb

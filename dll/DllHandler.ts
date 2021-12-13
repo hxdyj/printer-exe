@@ -1,5 +1,6 @@
 import edge from 'electron-edge-js'
 import path from 'path'
+import { PaperSizeItem, TrayItem } from './PrinterType'
 
 const PathPrinterDLL = path.join(__dirname, './Printer.dll')
 enum PrinterDllType {
@@ -41,24 +42,10 @@ export const DllHandler = {
       return callEdgeFunc<string[]>(getPrinters)
     },
     getPaperSizes: (printerName: string) => {
-      return callEdgeFunc<
-        Array<{
-          Height: number
-          Kind: string
-          PaperName: string
-          RawKind: number
-          Width: number
-        }>
-      >(getPaperSizes, printerName)
+      return callEdgeFunc<PaperSizeItem[]>(getPaperSizes, printerName)
     },
     getTrays: (printerName: string) => {
-      return callEdgeFunc<
-        Array<{
-          Kind: string
-          RawKind: number
-          SourceName: string
-        }>
-      >(getTrays, printerName)
+      return callEdgeFunc<TrayItem[]>(getTrays, printerName)
     },
   },
 }

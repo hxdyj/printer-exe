@@ -8,13 +8,14 @@ import { ErrorCode } from '../config/ErrorCode'
 import { G } from '../config/G'
 import https from 'https'
 import fs from 'fs'
-
+import { getCert, installCaToLocal } from '../mkcert/mkcert'
 const app = new Koa()
 // set cors
 app.use(async (ctx, next) => {
   ctx.set('Access-Control-Allow-Origin', '*')
   ctx.set('Content-Type', 'application/json; charset=utf-8')
-  ctx.set('Access-Control-Allow-Headers', 'accessToken, Content-Type')
+  ctx.set('Access-Control-Allow-Headers', '*')
+  // ctx.set('Access-Control-Allow-Headers', 'accessToken, Content-Type')
   //https://segmentfault.com/q/1010000005067552/a-1020000005157959  POST block is not worked.
   ctx.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
   if (ctx.method === 'OPTIONS') {
@@ -32,7 +33,7 @@ app.use(
 )
 
 const router = new Router()
-function startServer() {
+async function startServer() {
   app.use(
     ClassifyKoaRouter(
       router,
@@ -53,11 +54,13 @@ function startServer() {
     }
   })
   app.listen(G.port.http)
+  await installCaToLocal()
+  let cert = await getCert()
   https
     .createServer(
       {
-        key: fs.readFileSync(path.resolve(__dirname, '../key/server.key'), 'utf8'),
-        cert: fs.readFileSync(path.resolve(__dirname, '../key/server.cert'), 'utf8'),
+        key: fs.readFileSync(cert.key, 'utf8'),
+        cert: fs.readFileSync(cert.cert, 'utf8'),
       },
       app.callback()
     )
