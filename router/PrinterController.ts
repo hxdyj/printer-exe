@@ -4,13 +4,25 @@ import { print, getDefaultPrinter, getPrinters } from 'pdf-to-printer'
 import Result from '../node/utils/Result'
 import { ErrorCode } from '../config/ErrorCode'
 import { DllHandler } from '../dll/DllHandler'
+import { PrinterItem } from '../dll/PrinterType'
 
 type PrintParam = Parameters<typeof print>
 @Path('printer')
 export class PrinterController {
   @GET('sources')
-  getPrinters() {
-    return getPrinters()
+  async getPrinters() {
+    let printerList: PrinterItem[] = []
+    printerList.push({
+      deviceId: '',
+      name: '',
+    })
+    printerList = (await DllHandler.Printer.getPrinters()).map(item => {
+      return {
+        deviceId: item,
+        name: item,
+      }
+    })
+    return printerList
   }
 
   @GET('default')

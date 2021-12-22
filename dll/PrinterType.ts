@@ -1,3 +1,6 @@
+import { getPrinters } from 'pdf-to-printer'
+type UnwrapPromise<T> = T extends Promise<infer V> ? V : T
+type UnwrapArray<T> = T extends Array<infer V> ? V : T
 export type PaperSizeItem = {
   Height: number
   Kind: string
@@ -11,3 +14,4 @@ export type TrayItem = {
   RawKind: number
   SourceName: string
 }
+export type PrinterItem = UnwrapArray<UnwrapPromise<ReturnType<typeof getPrinters>>>

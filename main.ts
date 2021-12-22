@@ -1,7 +1,6 @@
 import { app, Tray } from 'electron'
 import path from 'path'
 import { startServer } from './node/koa'
-
 app.on('ready', () => {
   createTray()
   startServer()

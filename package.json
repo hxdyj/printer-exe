@@ -11,7 +11,7 @@
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
     "_tsc": "tsc",
-    "copy": "copyfiles ./key/* ./dist/ && copyfiles ./dll/*.dll ./dist  && copyfiles ./mkcert/*.exe ./dist/",
+    "copy": "copyfiles ./win7patch/* ./dist/ && copyfiles ./dll/*.dll ./dist  && copyfiles ./mkcert/*.exe ./dist/",
     "prerun": "npm run _tsc && npm run copy",
     "estart": "npm run prerun &&  electron .",
     "package": "npm run prerun && electron-forge package",
