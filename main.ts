@@ -1,12 +1,13 @@
 import { app, Tray } from 'electron'
 import path from 'path'
 import { startServer } from './node/koa'
+import { createPDFdir } from './node/utils/download'
 app.on('ready', () => {
+  createPDFdir()
   createTray()
   startServer()
   app.setLoginItemSettings({
-    openAtLogin: true,
-    args: ['--process-start-args', `"--hidden"`],
+    openAtLogin: app.isPackaged ? true : false,
   })
 })
 

@@ -48,10 +48,11 @@ export class PrinterController {
     }
   }
 
-  @POST()
+  @POST('print')
   async print({ fileUrl, printConf }: { fileUrl: string; printConf?: PrintParam[1] }) {
-    let pdfPath = await downloadFile(fileUrl)
+    let pdfPath = ''
     try {
+      let pdfPath = await downloadFile(fileUrl)
       await print(pdfPath, printConf)
       deleteFile(pdfPath)
       return new Result(
@@ -63,7 +64,9 @@ export class PrinterController {
         '打印成功'
       )
     } catch (error) {
-      deleteFile(pdfPath)
+      if (pdfPath) {
+        deleteFile(pdfPath)
+      }
       return new Result('', ErrorCode.Fail, JSON.stringify(error))
     }
   }

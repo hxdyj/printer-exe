@@ -17,7 +17,7 @@ app.use(async (ctx, next) => {
   ctx.set('Access-Control-Allow-Headers', '*')
   // ctx.set('Access-Control-Allow-Headers', 'accessToken, Content-Type')
   //https://segmentfault.com/q/1010000005067552/a-1020000005157959  POST block is not worked.
-  ctx.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+  ctx.set('Access-Control-Allow-Methods', '*')
   if (ctx.method === 'OPTIONS') {
     ctx.body = ''
     ctx.status = 204
